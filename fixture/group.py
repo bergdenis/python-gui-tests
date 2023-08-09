@@ -1,3 +1,6 @@
+from model.group import Group
+
+
 class GroupHelper():
 
     def __init__(self, app):
@@ -26,3 +29,21 @@ class GroupHelper():
 
     def close_group_editor(self):
         self.group_editor.close()
+
+    def del_group_by_index(self, index):
+        self.open_group_editor()
+        self.select_group_by_index(index)
+        self.open_group_deletion()
+        self.group_deletion.window(auto_id="uxDeleteAllRadioButton").click()
+        self.group_deletion.window(auto_id="uxOKAddressButton").click()
+        self.close_group_editor()
+        self.group_cache = None
+
+    def select_group_by_index(self, index):
+        tree = self.group_editor.window(auto_id="uxAddressTreeView")
+        root = tree.tree_root()
+        root.children()[index].select()
+
+    def open_group_deletion(self):
+        self.group_editor.window(auto_id="uxDeleteAddressButton").click()
+        self.group_deletion = self.app.application.window(title="Delete group")
