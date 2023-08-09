@@ -1,6 +1,7 @@
 from model.group import Group
 import random
 
+
 def test_del_group(app):
     if len(app.groups.get_group_list()) == 1:
         app.groups.add_new(Group(name="Temp_group"))
